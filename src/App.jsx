@@ -27,6 +27,18 @@ const App = () => {
     setTasks(copyTasks)
   }
 
+  const deleteHandler = (i) =>{
+    const copyTasks = [...tasks]
+    let isValid= false;
+    if(!copyTasks[i].completed){
+      isValid = confirm("do you really want to delete this task?");
+    }
+    if(isValid || copyTasks[i].completed){
+      copyTasks.splice(i,1)
+      setTasks(copyTasks)
+    }   
+  }
+
   let taskRender = <h1 className='text-white bg-red-600 w-40 rounded-xl text-center mt-10 ml-20 '> No Task not present</h1>;
   if (tasks.length > 0) {
     taskRender = (
@@ -38,7 +50,7 @@ const App = () => {
             <p c className={`${ task.completed  && "line-through"} text-xl mt-1`}>{task.title}</p>
             <div className='mt-1'>
             <i className="ri-file-edit-line text-2xl"></i>
-            <i className="ri-delete-bin-2-line text-2xl"></i>
+            <i onClick={(e)=> deleteHandler(index)} className="ri-delete-bin-2-line text-2xl"></i>
             </div>
             
           </li>
